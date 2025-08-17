@@ -1,16 +1,42 @@
-# smart_inc_authapp
+Countly App (Flutter + Firebase Auth + Riverpod)
 
-A new Flutter project.
+A clean Flutter example you can ship: Firebase Email/Password authentication (signup, login, logout), Riverpod state management, and a modern animated Home screen with a counter.
 
-## Getting Started
+Built for Android & iOS. This README gives everything a reviewer needs: features, architecture, setup, run, and troubleshooting.
 
-This project is a starting point for a Flutter application.
+✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+Authentication:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Email/Password signup & login (Firebase Auth)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Proper error messages: wrong password, user not found, weak password, etc.
+
+Logout from Home (top-right)
+
+Session persistence handled by Firebase
+
+State management:
+
+Flutter Riverpod (no global singletons, testable architecture)
+
+AuthGate decides Login ↔ Home based on auth state
+
+CounterController (increment / decrement / reset)
+
+UI/UX:
+
+Modern Material 3 theme
+
+Animated gradient background & frosted glass card
+
+Smooth number transitions + subtle haptics
+
+Three large buttons: Minus 1, Reset, Plus 1
+
+AppBar shows Countly App and a Logout action
+
+
+
+
+
