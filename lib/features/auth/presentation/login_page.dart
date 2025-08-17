@@ -16,6 +16,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
   late AnimationController _controller;
   late Animation<double> _fade;
   late Animation<Offset> _slide;
+  bool _obscurePassword = true;
 
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
@@ -203,7 +204,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
                             const SizedBox(height: 20),
                             TextFormField(
                               controller: _password,
-                              obscureText: true,
+                              obscureText: _obscurePassword,
                               decoration: InputDecoration(
                                 prefixIcon: const Icon(Icons.lock_outline),
                                 hintText: 'Password',
@@ -216,6 +217,18 @@ class _LoginPageState extends ConsumerState<LoginPage>
                                   borderSide: BorderSide.none,
                                 ),
                                 errorText: _passwordAuthError,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscurePassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
                               ),
                               validator: (v) {
                                 if (v == null || v.isEmpty)

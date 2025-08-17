@@ -19,6 +19,9 @@ class _SignupPageState extends ConsumerState<SignupPage>
   late Animation<double> _scale;
   late AnimationController _btnCtrl;
   late Animation<double> _btnScale;
+  bool _obscurePassword = true;
+  final _confirmPassword = TextEditingController();
+  bool _obscureConfirmPassword = true;
 
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
@@ -46,9 +49,12 @@ class _SignupPageState extends ConsumerState<SignupPage>
 
     _btnCtrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 150),
     );
-    _btnScale = CurvedAnimation(parent: _btnCtrl, curve: Curves.easeInOut);
+    _btnScale = Tween<double>(
+      begin: 1.0,
+      end: 0.96,
+    ).animate(CurvedAnimation(parent: _btnCtrl, curve: Curves.easeInOut));
   }
 
   @override
@@ -58,6 +64,8 @@ class _SignupPageState extends ConsumerState<SignupPage>
     _username.dispose();
     _email.dispose();
     _password.dispose();
+    _confirmPassword.dispose();
+
     super.dispose();
   }
 
@@ -215,14 +223,40 @@ class _SignupPageState extends ConsumerState<SignupPage>
                           controller: _password,
                           hintText: 'Password',
                           prefixIcon: Icons.lock_outline,
-                          obscureText: true,
+                          obscureText: _obscurePassword,
                           validator:
                               (v) =>
                                   (v == null || v.length < 6)
                                       ? 'Password must be at least 6 characters long'
                                       : null,
                           errorText: _passwordAuthError,
+                          onToggle: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
                         ),
+                        SizedBox(height: 20),
+                        _field(
+                          controller: _confirmPassword,
+                          hintText: 'Confirm Password',
+                          prefixIcon: Icons.lock_outline,
+                          obscureText: _obscureConfirmPassword,
+                          validator: (v) {
+                            if (v == null || v.isEmpty)
+                              return 'Please confirm your password';
+                            if (v != _password.text)
+                              return 'Passwords do not match';
+                            return null;
+                          },
+                          onToggle: () {
+                            setState(() {
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
+                            });
+                          },
+                        ),
+
                         const SizedBox(height: 20),
                         Center(
                           child: GestureDetector(
@@ -305,6 +339,7 @@ class _SignupPageState extends ConsumerState<SignupPage>
     required String? Function(String?)? validator,
     bool obscureText = false,
     String? errorText,
+    VoidCallback? onToggle,
   }) {
     return ScaleTransition(
       scale: _scale,
@@ -321,6 +356,15 @@ class _SignupPageState extends ConsumerState<SignupPage>
             borderSide: BorderSide.none,
           ),
           errorText: errorText,
+          suffixIcon:
+              onToggle != null
+                  ? IconButton(
+                    icon: Icon(
+                      obscureText ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: onToggle,
+                  )
+                  : null,
         ),
         validator: validator,
       ),
