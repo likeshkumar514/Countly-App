@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "527630933903",
+    "project_id": "auth-counter-app",
+    "storage_bucket": "auth-counter-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527630933903:android:f6ab9f50ca3731757bf5fa",
+        "android_client_info": {
+          "package_name": "com.example.smart_inc_authapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM9938gs0zH5x-NH43HALJ1V9QQ1b6_sM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
